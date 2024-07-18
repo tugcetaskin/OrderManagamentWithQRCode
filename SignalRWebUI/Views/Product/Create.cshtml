@@ -1,0 +1,52 @@
+﻿@model SignalRWebUI.DTOs.ProductDTOs.CreateProductDTO
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Ürün Oluştur</h4>
+            <form class="forms-sample" method="post">
+
+                <div class="form-group">
+                    <label for="Name">Ürün Adı</label>
+                    <input type="text" class="form-control" asp-for="Name" id="Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="CategoryId">Kategori</label>
+                    <select class="form-control" asp-for="CategoryId" id="CategoryId">
+                        @foreach(var category in ViewBag.Category)
+                        {
+                            <option value="@category.Value">@category.Text</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Description">Açıklama</label>
+                    <textarea rows="5" asp-for="Description" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="Price">Fiyat</label>
+                    <input type="text" class="form-control" asp-for="Price" id="Price">
+                </div>
+
+                <div class="form-group">
+                    <label for="Status">Durum</label>
+                    <select class="form-control" asp-for="Status" id="Status">
+                        <option>True</option>
+                        <option>False</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+                <a href="/Product/Index" class="btn btn-dark">Çık</a>
+            </form>
+        </div>
+    </div>
+</div>
+

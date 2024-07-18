@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+
+@await Component.InvokeAsync("_UILayoutHead")
+
+<body>
+
+    <div class="hero_area">
+        <div class="bg-box">
+            <img src="~/feane/images/hero-bg.jpg" alt="">
+        </div>
+        <!-- header section strats -->
+        @await Component.InvokeAsync("_UILayoutHeader")
+        <!-- end header section -->
+        <!-- slider section -->
+        @await Component.InvokeAsync("_UILayoutSliderSection")
+        <!-- end slider section -->
+    </div>
+
+    @RenderBody()
+    <!-- footer section -->
+    @await Component.InvokeAsync("_UILayoutFooter")
+    <!-- footer section -->
+    @await Component.InvokeAsync("_UILayoutScript")
+
+</body>
+
+</html>

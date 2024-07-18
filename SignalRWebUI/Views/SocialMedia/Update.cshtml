@@ -1,0 +1,34 @@
+﻿@model SignalRWebUI.DTOs.SocialMediaDTOs.UpdateSocialMediaDTO
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Sosyal Medya Bilgilerini Güncelle</h4>
+            <form class="forms-sample" method="post">
+                <input type="hidden" asp-for="Id" value="@Model.Id"/>
+                <div class="form-group">
+                    <label for="Title">Başlık</label>
+                    <input type="text" class="form-control" asp-for="Title" id="Title">
+                </div>
+
+                <div class="form-group">
+                    <label for="Url">Url</label>
+                    <input type="text" class="form-control" asp-for="Url" id="Url">
+                </div>
+
+                <div class="form-group">
+                    <label for="Icon">İkon</label>
+                    <input type="text" class="form-control" asp-for="Icon" id="Icon">
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+                <a href="/SocialMedia/Index" class="btn btn-dark">Çık</a>
+            </form>
+        </div>
+    </div>
+</div>
+

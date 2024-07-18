@@ -1,0 +1,48 @@
+﻿@model List<SignalRWebUI.DTOs.ProductDTOs.ResultProductDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Ürün Listesi</h4>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th> Id </th>
+                            <th> Resim </th>
+                            <th> Ürün Adı </th>
+                            <th> Kategori </th>
+                            <th> Fiyat </th>
+                            <th> Durum </th>
+                            <th> Güncelle </th>
+                            <th> Sil </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in Model)
+                        {
+                            <tr>
+                                <td> @item.Id </td>
+                                <td class="py-1">
+                                    <img src="@item.ImageUrl" alt="image" />
+                                </td>
+                                <td> @item.Name </td>
+                                <td> @item.CategoryName </td>
+                                <td> @item.Price </td>
+                                <td> @item.Status </td>
+                                <td> <a href="/Product/Update/@item.Id" class="btn btn-success">Güncelle</a> </td>
+                                <td><a href="/Product/Delete/@item.Id" class="badge badge-danger">Sil</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <a href="/Product/Create" class="badge badge-info">Ekle</a>
+            </div>
+        </div>
+    </div>
+</div>
+

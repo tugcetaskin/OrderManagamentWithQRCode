@@ -1,0 +1,405 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+
+
+<div class="row">
+
+    <script type="text/javascript">
+        $(document).ready(() => {
+            var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7214/SignalRHub").build();
+            $("#connstatus").text(connection.state);
+
+            connection.start().then(() => {
+                $("#connstatus").text(connection.state)
+                connection.invoke("SendStatistic");
+            }).catch((err) => { console.log(err) });
+
+            connection.on("ReceiveCategoryCount", (value) => {
+                $("#categorycount").text(value)
+            });
+
+            connection.on("ReceiveProductCount", (value2) => {
+                $("#productcount").text(value2)
+            });
+
+            connection.on("ReceiveActiveCategoryCount", (value3) => {
+                $("#activecategorycount").text(value3)
+            });
+
+            connection.on("ReceivePassiveCategoryCount", (value4) => {
+                $("#passivecategorycount").text(value4)
+            });
+
+            connection.on("ReceiveProductCountByCategoryMain", (value5) => {
+                $("#productcountbymain").text(value5)
+            });
+
+            connection.on("ReceiveProductCountByCategoryDessert", (value6) => {
+                $("#productcountbydessert").text(value6)
+            });
+
+            connection.on("ReceiveAvarageProductPrice", (value7) => {
+                $("#avarageproductprice").text(value7)
+            });
+
+            connection.on("ReceiveHighestProductPrice", (value8) => {
+                $("#highestproductprice").text(value8)
+            });
+
+            connection.on("ReceiveLowestProductPrice", (value9) => {
+                $("#lowestproductprice").text(value9)
+            });
+
+            connection.on("ReceiveAvarageMainMealPrice", (value10) => {
+                $("#avaragemainmealprice").text(value10)
+            });
+
+            connection.on("ReceiveTotalOrderCount", (value11) => {
+                $("#totalordercount").text(value11)
+            });
+
+            connection.on("ReceiveActiveOrderCount", (value12) => {
+                $("#activeordercount").text(value12)
+            });
+
+            connection.on("ReceiveLastOrderCount", (value13) => {
+                $("#lastordercount").text(value13)
+            });
+
+            connection.on("ReceiveTotalMoneyCaseAmount", (value14) => {
+                $("#totalmoneycaseamounth").text(value14)
+            });
+
+            connection.on("ReceiveTodaysEarningsAmount", (value15) => {
+                $("#todaysearnings").text(value15);
+
+                if (value15 == "0,00 ₺") {
+                    $("#earnings-icon").removeClass("icon icon-box-success").addClass("icon icon-box-danger");
+                }
+            });
+
+            connection.on("ReceiveTableCount", (value16) => {
+                $("#tablecount").text(value16)
+            });
+        })
+    </script>
+
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="categorycount">  </h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success ">
+                            <span class="mdi mdi-apps icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Kategori Sayısı</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="productcount"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success">
+                            <span class="mdi mdi-buffer icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Ürün Sayısı</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="activecategorycount"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success">
+                            <span class="mdi mdi-animation icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Aktif Kategori Sayısı</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="passivecategorycount"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-danger ">
+                            <span class="mdi mdi-arrange-send-backward icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Pasif Kategori Sayısı</h6>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="productcountbymain"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success ">
+                            <span class="mdi mdi-bowl icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Ana Yemek Ürün Sayısı</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="productcountbydessert"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success">
+                            <span class="mdi mdi-cake-variant icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Tatlı Sayısı</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="highestproductprice"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success ">
+                            <span class="mdi mdi-arrow-top-right icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">En Pahalı Ürün</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="lowestproductprice"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-danger ">
+                            <span class="mdi mdi-arrow-bottom-left icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">En Ucuz Ürün</h6>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="avarageproductprice"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success">
+                            <span class="mdi mdi-cash-multiple icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Ortalama Ürün Tutarı</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="avaragemainmealprice"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success">
+                            <span class="mdi mdi-cash-usd icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Ortalama Ana Yemek Ücreti</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="totalordercount"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success">
+                            <span class="mdi mdi-counter icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Toplam Sİpariş Sayısı</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="activeordercount"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-warning ">
+                            <span class="mdi mdi-cart icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Aktif Sipariş Sayısı</h6>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="lastordercount"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success ">
+                            <span class="mdi mdi-cash-100 icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Son Sipariş Ücreti</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="totalmoneycaseamounth"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success">
+                            <span class="mdi mdi-briefcase-check icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Toplam Kasa Tutarı</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="todaysearnings"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div id="earnings-icon" class="icon icon-box-success">
+                            <span class="mdi mdi-calendar-today icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Bugünün Kazancı</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0" id="tablecount"></h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success ">
+                            <span class="mdi mdi-chair-school icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Masa Sayısı</h6>
+            </div>
+        </div>
+    </div>
+</div>

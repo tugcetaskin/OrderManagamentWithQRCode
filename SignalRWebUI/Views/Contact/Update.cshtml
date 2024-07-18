@@ -1,0 +1,39 @@
+﻿@model SignalRWebUI.DTOs.ContactDTOs.UpdateContactDTO
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">İletişim Bilgisi Güncelle</h4>
+            <form class="forms-sample" method="post">
+                <input type="hidden" asp-for="Id" value="@Model.Id"/>
+                <div class="form-group">
+                    <label for="Location">Konum</label>
+                    <input type="text" class="form-control" asp-for="Location" id="Location">
+                </div>
+
+                <div class="form-group">
+                    <label for="Phone">Telefon</label>
+                    <input type="text" class="form-control" asp-for="Phone" id="Phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="Email">Email</label>
+                    <input type="text" class="form-control" asp-for="Email" id="Email">
+                </div>
+
+                <div class="form-group">
+                    <label for="FooterDescription">Footer Açıklaması</label>
+                    <input type="text" class="form-control" asp-for="FooterDescription" id="FooterDescription">
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+                <a href="/Contact/Index" class="btn btn-dark">Çık</a>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,34 @@
+﻿@model SignalRWebUI.DTOs.SocialMediaDTOs.CreateSocialMediaDTO
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Sosyal Medya Ekle</h4>
+            <form class="forms-sample" method="post">
+
+                <div class="form-group">
+                    <label for="Title">Başlık</label>
+                    <input type="text" class="form-control" asp-for="Title" id="Title">
+                </div>
+
+                <div class="form-group">
+                    <label for="Url">Url</label>
+                    <input type="text" class="form-control" asp-for="Url" id="Url">
+                </div>
+
+                <div class="form-group">
+                    <label for="Icon">İkon</label>
+                    <input type="text" class="form-control" asp-for="Icon" id="Icon">
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+                <a href="/SocialMedia/Index" class="btn btn-dark">Çık</a>
+            </form>
+        </div>
+    </div>
+</div>
+

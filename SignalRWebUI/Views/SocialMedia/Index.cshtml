@@ -1,0 +1,45 @@
+﻿@using SignalRWebUI.DTOs.SocialMediaDTOs
+@model List<ResultSocialMediaDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Sosyal Medya Listesi</h4>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th> Id </th>
+                            <th> İkon </th>
+                            <th> Başlık </th>
+                            <th> Url </th>
+                            <th> Güncelle </th>
+                            <th> Sil </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td> @item.Id </td>
+                                <td class="py-1">
+                                    <i class="@item.Icon"></i>
+                                </td>
+                                <td> @item.Title </td>
+                                <td> @item.Url </td>
+                                <td> <a href="/SocialMedia/Update/@item.Id" class="btn btn-success">Güncelle</a> </td>
+                                <td><a href="/SocialMedia/Delete/@item.Id" class="badge badge-danger">Sil</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <a href="/SocialMedia/Create" class="badge badge-info">Ekle</a>
+            </div>
+        </div>
+    </div>
+</div>
+

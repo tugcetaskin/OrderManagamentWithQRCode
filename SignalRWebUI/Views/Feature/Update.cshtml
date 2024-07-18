@@ -1,0 +1,49 @@
+﻿@model SignalRWebUI.DTOs.FeatureDTOs.UpdateFeatureDTO
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Öne Çıkanlar Bilgisi Güncelle</h4>
+            <form class="forms-sample" method="post">
+                <input type="hidden" asp-for="Id"/>
+                <div class="form-group">
+                    <label for="Title1">Başlık 1</label>
+                    <input type="text" class="form-control" asp-for="Title1" id="Title1">
+                </div>
+
+                <div class="form-group">
+                    <label for="Description1">Açıklama 1</label>
+                    <input type="text" class="form-control" asp-for="Description1" id="Description1">
+                </div>
+
+                <div class="form-group">
+                    <label for="Title2">Başlık 2</label>
+                    <input type="text" class="form-control" asp-for="Title2" id="Title2">
+                </div>
+
+                <div class="form-group">
+                    <label for="Description2">Açıklama 2</label>
+                    <input type="text" class="form-control" asp-for="Description2" id="Description2">
+                </div>
+
+                <div class="form-group">
+                    <label for="Title3">Başlık 3</label>
+                    <input type="text" class="form-control" asp-for="Title3" id="Title3">
+                </div>
+
+                <div class="form-group">
+                    <label for="Description3">Açıklama 3</label>
+                    <input type="text" class="form-control" asp-for="Description3" id="Description3">
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+                <a href="/Feature/Index" class="btn btn-dark">Çık</a>
+            </form>
+        </div>
+    </div>
+</div>
+
