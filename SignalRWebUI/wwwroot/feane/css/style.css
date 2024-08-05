@@ -547,6 +547,11 @@ a:focus {
 
 .food_section .box .detail-box p {
   font-size: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .food_section .box .detail-box h6 {

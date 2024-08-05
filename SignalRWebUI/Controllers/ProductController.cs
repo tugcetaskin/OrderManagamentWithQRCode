@@ -23,7 +23,7 @@ namespace SignalRWebUI.Controllers
             if(responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultProductDTO>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultProductWitCategoryDTO>>(jsonData);
                 return View(values);
             }
             return View();

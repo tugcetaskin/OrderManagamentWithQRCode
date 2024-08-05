@@ -7,7 +7,7 @@ function getYear() {
 
 getYear();
 
-
+debugger;
 // isotope js
 $(window).on('load', function () {
     $('.filters_menu li').click(function () {

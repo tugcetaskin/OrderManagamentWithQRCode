@@ -15,5 +15,12 @@ namespace DataAccessLayer.EntityFramework
         public EfAboutDal(Context context) : base(context)
         {
         }
+
+        public About GetLastAbout()
+        {
+            using var context = new Context();
+            var result = context.Abouts.OrderByDescending(x => x.Id).Take(1).FirstOrDefault();
+            return result;
+        }
     }
 }

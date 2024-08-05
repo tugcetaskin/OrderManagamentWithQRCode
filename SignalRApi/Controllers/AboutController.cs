@@ -27,6 +27,12 @@ namespace SignalRApi.Controllers
             return Ok(values);
         }
 
+        [HttpGet("GetLastAbout")]
+        public IActionResult GetLastAbout()
+        {
+            return Ok(_aboutService.TGetLastAbout());
+        }
+
         [HttpPost]
         public IActionResult CreateAbout(CreateAboutDTO createAboutDTO)
         {
