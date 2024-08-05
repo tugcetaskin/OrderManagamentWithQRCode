@@ -76,10 +76,11 @@
         var id = value;
         $.ajax({
             type: 'post',
+            url: "/Product/AddToBasket/" + id,
             data: { item: id },
             contentType: 'json',
             success: function () {
-                swal("Seçilen Ürün Id : " + id, "Seçimini Yaptınız!", "success");
+                swal("Seçilen Ürün Id : " + id, "Sepete Eklendi!", "success");
             }
         });
     }
