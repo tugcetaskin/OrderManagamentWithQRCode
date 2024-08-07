@@ -45,5 +45,44 @@ namespace SignalRApi.Controllers
 
             return Ok($"{product.Name} Sepete Başarı İle Eklendi.");
         }
-    }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBasket(int id)
+        {
+            var value = _basketService.TGetById(id);
+            _basketService.TDelete(value);
+            return Ok("Seçilen Ürün Başarı İle Silindi");
+        }
+
+		[HttpGet("GetBasketByProductAndTable")]
+		public IActionResult GetBasketByProductAndTable(int productId, int tableID)
+		{
+			var value = _basketService.TGetBasketByProductAndTable(productId, tableID);
+			if (value == null)
+			{
+				return NotFound("Basket not found");
+			}
+
+			GetBasketDTO basketDTO = new GetBasketDTO()
+			{
+				Id = value.Id,
+				ProductId = value.ProductId,
+				TableId = value.TableId,
+				Count = value.Count,
+				Price = value.Price,
+				TotalPrice = value.Price,
+				Product = value.Product,
+				Table = value.Table
+			};
+			return Ok(basketDTO);
+		}
+
+        [HttpGet("BasketIdByProductAndTable")]
+        public IActionResult BasketIdByPAndT(int productId, int tableID)
+        {
+            var id = _basketService.TGetBasketIdByPAndT(productId, tableID);
+            return Ok(id);
+        }
+
+	}
 }

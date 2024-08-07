@@ -42,7 +42,7 @@
 					@foreach (var item in Model)
 					{
 						count++;
-						total = Model.Sum(x => x.Price);
+						total += item.Count * item.Price;
 						kdv = total * 23 / 100;
 						totalPrice = total + kdv;
 						<tr>
@@ -52,9 +52,7 @@
 							<td class="align-middle">@item.Price</td>
 							<td class="align-middle">@item.TotalPrice</td>
 							<td class="align-middle btn-delete">
-								<button data-basketId="@item.Id" id="btnDeleteBasketId" class="btn btn-sm btn-danger">
-									<i class="fa fa-times"></i>
-								</button>
+								<a href="/Basket/DeleteProductInBasket/@item.ProductId" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
 					}

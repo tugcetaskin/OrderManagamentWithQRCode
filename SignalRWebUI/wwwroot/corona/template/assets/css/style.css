@@ -20470,8 +20470,8 @@ div.tagsinput {
       .navbar .navbar-menu-wrapper .count-indicator .count {
         position: absolute;
         left: 66%;
-        width: 7px;
-        height: 7px;
+        width: 12px;
+        height: 12px;
         color: #ffffff;
         border-radius: 100%;
         text-align: center;

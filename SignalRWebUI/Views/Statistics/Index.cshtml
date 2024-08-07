@@ -18,11 +18,14 @@
             $("#connstatus").text(connection.state);
 
             connection.start().then(() => {
-                $("#connstatus").text(connection.state)
-                connection.invoke("SendStatistic");
+                $("#connstatus").text(connection.state);
+                setInterval(() => {
+                    connection.invoke("SendStatistic");
+                }, 1000);
             }).catch((err) => { console.log(err) });
 
             connection.on("ReceiveCategoryCount", (value) => {
+                console.log(value);
                 $("#categorycount").text(value)
             });
 

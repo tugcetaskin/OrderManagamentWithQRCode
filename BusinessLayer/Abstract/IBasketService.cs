@@ -10,5 +10,7 @@ namespace BusinessLayer.Abstract
     public interface IBasketService : IGenericService<Basket>
     {
         List<Basket> TGetBasketByTableNum(int id);
-    }
+		Basket TGetBasketByProductAndTable(int productId, int tableId);
+		int TGetBasketIdByPAndT(int productId, int tableId);
+	}
 }

@@ -11,14 +11,17 @@ namespace SignalRApi.Hubs
         private readonly IOrderService _orderService;
         private readonly IMoneyCaseService _moneyCaseService;
         private readonly ITableForCustomerService _tableForCustomerService;
-
-        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableForCustomerService tableForCustomerService)
+        private readonly IBookingService _bookingService;
+        private readonly INotificationService _notificationService;
+        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableForCustomerService tableForCustomerService, IBookingService bookingService, INotificationService notificationService)
         {
             _categoryService = categoryService;
             _productService = productService;
             _orderService = orderService;
             _moneyCaseService = moneyCaseService;
             _tableForCustomerService = tableForCustomerService;
+            _bookingService = bookingService;
+            _notificationService = notificationService;
         }
 
         public async Task SendStatistic()
@@ -76,6 +79,20 @@ namespace SignalRApi.Hubs
         {
             var value = _moneyCaseService.TTotalMoneyCaseAmount();
             await Clients.All.SendAsync("ReceiveTotalMoneyCaseAmount", value.ToString("0.00") + "  ₺");
+        }
+
+        public async Task GetBookingList()
+        {
+            var values = _bookingService.TGetListAll();
+            await Clients.All.SendAsync("ReceiveBookingList", values);
+        }
+        public async Task GetNotificationCount()
+        {
+            var value = _notificationService.TGetUnreadNotificationCount();
+            await Clients.All.SendAsync("NotificationCount", value);
+
+            var list = _notificationService.TGetUnreadNotificationList();
+            await Clients.All.SendAsync("NotificationsList", list);
         }
     }
 }

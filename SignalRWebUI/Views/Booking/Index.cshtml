@@ -5,42 +5,73 @@
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(() => {
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7214/SignalRHub").build();
+        $("#connstatus").text(connection.state);
+
+        connection.start().then(() => {
+            $("#connstatus").text(connection.state);
+            setInterval(() => {
+                connection.invoke("GetBookingList");
+            }, 1000);
+        }).catch((err) => { console.log(err) });
+
+        connection.on("ReceiveBookingList", (value) => {
+            console.log(value);
+            let tablehtml = 
+            `<table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>İsim</th>
+                        <th>Telefon</th>
+                        <th>Email</th>
+                        <th>Kişi Sayısı</th>
+                        <th>Tarih</th>
+                        <th>Güncelle</th>
+                        <th>Sil</th>
+                     </tr>
+                </thead>
+                <tbody>`
+            $.each(value, (index, item) => {
+                tablehtml +=
+                    `<tr>
+                            <td>${item.id}</td>
+                            <td>${item.name}</td>
+                            <td>${item.phone}</td>
+                            <td>${item.email}</td>
+                            <td>${item.personCount}</td>
+                            <td>${item.date}</td>
+                                <td><a href="/Booking/Update/${item.id}" class="btn btn-success">Güncelle</a></td>
+                                <td><a href="/Booking/Delete/${item.id}" class="badge badge-danger">Sil</a></td>
+                    </tr>
+                    `
+            });
+            tablehtml += "</tbody></table>";
+            $("#bookingList").html(tablehtml);
+        });
+
+
+    })
+</script>
+
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Rezervaasyon Listesi</h4>
 
             <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>İsim</th>
-                            <th>Telefon</th>
-                            <th>Email</th>
-                            <th>Kişi Sayısı</th>
-                            <th>Tarih</th>
-                            <th>Güncelle</th>
-                            <th>Sil</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.Id</td>
-                                <td>@item.Name</td>
-                                <td>@item.Phone</td>
-                                <td>@item.Email</td>
-                                <td>@item.PersonCount</td>
-                                <td>@item.Date</td>
-                                <td><a href="/Booking/Update/@item.Id" class="btn btn-success">Güncelle</a></td>
-                                <td><a href="/Booking/Delete/@item.Id" class="badge badge-danger">Sil</a></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                <div id="bookingList">
+
+                </div>
                 <a href="/Booking/Create" class="badge badge-info">Ekle</a>
+                
             </div>
         </div>
     </div>

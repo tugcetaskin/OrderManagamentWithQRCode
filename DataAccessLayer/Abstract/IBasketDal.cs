@@ -10,5 +10,7 @@ namespace DataAccessLayer.Abstract
     public interface IBasketDal : IGenericDal<Basket>
     {
         List<Basket> GetBasketByTableNum(int id);
-    }
+        Basket GetBasketByProductAndTable(int productId, int tableId);
+        int GetBasketIdByPAndT(int productId, int tableId);
+	}
 }

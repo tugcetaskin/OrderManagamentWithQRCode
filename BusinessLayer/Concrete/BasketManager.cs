@@ -28,12 +28,22 @@ namespace BusinessLayer.Concrete
             _basketDal.Delete(entity);
         }
 
-        public List<Basket> TGetBasketByTableNum(int id)
+		public Basket TGetBasketByProductAndTable(int productId, int tableId)
+		{
+			return _basketDal.GetBasketByProductAndTable(productId, tableId);
+		}
+
+		public List<Basket> TGetBasketByTableNum(int id)
         {
             return _basketDal.GetBasketByTableNum(id);
         }
 
-        public Basket TGetById(int id)
+		public int TGetBasketIdByPAndT(int productId, int tableId)
+		{
+			return _basketDal.GetBasketIdByPAndT(productId, tableId);
+		}
+
+		public Basket TGetById(int id)
         {
             return _basketDal.GetById(id);
         }

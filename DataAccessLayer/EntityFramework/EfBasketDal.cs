@@ -17,11 +17,29 @@ namespace DataAccessLayer.EntityFramework
         {
         }
 
-        public List<Basket> GetBasketByTableNum(int id)
+		public Basket GetBasketByProductAndTable(int productId, int tableId)
+		{
+			using var _context = new Context();
+            var basket = _context.Baskets.Where(x => x.ProductId == productId && x.TableId == tableId).Include(x => x.Product).Include(y => y.Table).FirstOrDefault();
+			return basket;
+		}
+
+		public List<Basket> GetBasketByTableNum(int id)
         {
             using var _context = new Context();
             var values = _context.Baskets.Where(x => x.TableId == id).Include(y => y.Product).ToList();
             return values;
         }
-    }
+
+		public int GetBasketIdByPAndT(int productId, int tableId)
+		{
+			using var _context = new Context();
+			var basket = _context.Baskets.Where(x => x.ProductId == productId && x.TableId == tableId).FirstOrDefault();
+			if(basket == null)
+			{
+				return 0;
+			}
+			return basket.Id;
+		}
+	}
 }

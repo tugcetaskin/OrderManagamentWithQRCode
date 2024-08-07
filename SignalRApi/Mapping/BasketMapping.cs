@@ -9,7 +9,7 @@ namespace SignalRApi.Mapping
         public BasketMapping()
         {
             CreateMap<Basket, ResultBasketByTableDTO>().ReverseMap();
-            CreateMap<Basket, GetBasketDTO>().ReverseMap();
+            CreateMap<Basket, GetBasketByPAndTDTO>().ReverseMap();
             CreateMap<Basket, CreateBasketDTO>().ReverseMap();
             CreateMap<Basket, UpdateBasketDTO>().ReverseMap();
             CreateMap<Basket, ResultBasketDTO>().ReverseMap();
