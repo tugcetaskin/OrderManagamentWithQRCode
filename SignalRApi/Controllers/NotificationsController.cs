@@ -9,12 +9,12 @@ namespace SignalRApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NotifcationsController : ControllerBase
+    public class NotificationsController : ControllerBase
     {
         private readonly INotificationService _notificationService;
         private readonly IMapper _mapper;
 
-        public NotifcationsController(INotificationService notificationService, IMapper mapper)
+        public NotificationsController(INotificationService notificationService, IMapper mapper)
         {
             _notificationService = notificationService;
             _mapper = mapper;
@@ -43,13 +43,12 @@ namespace SignalRApi.Controllers
         [HttpPut]
         public IActionResult UpdateNotification(UpdateNotificationDTO dto)
         {
-            _notificationService.TUpdate(new Notification()
-            {
-                Date = dto.Date,
-                Description = dto.Description,
-                Icon = dto.Icon,
-                Status = dto.Status
-            });
+            var noti = _notificationService.TGetById(dto.Id);
+            noti.Description = dto.Description;
+            noti.Icon = dto.Icon;
+            noti.Status = dto.Status;
+            noti.Date = dto.Date;
+            _notificationService.TUpdate(noti);
             return Ok("Bildirim Alanı Başarı İle Güncellendi");
         }
 
@@ -73,6 +72,30 @@ namespace SignalRApi.Controllers
         {
             var count = _notificationService.TGetUnreadNotificationCount();
             return Ok(count);
+        }
+
+        [HttpGet("MarkAsRead/{id}")]
+        public IActionResult MarkAsRead(int id)
+        {
+            var status = _notificationService.TGetStatus(id);
+            if(status == false)
+            {
+                _notificationService.TMarkAsRead(id);
+                return Ok("Bildirim Okundu Olarak İşaretlendi.");
+            }
+            return Ok("Bildirim Durumu : Okundu. İşlem Yapılmadı.");
+        }
+
+        [HttpGet("MarkAsUnread/{id}")]
+        public IActionResult MarkAsUnread(int id)
+        {
+            var status = _notificationService.TGetStatus(id);
+            if (status == true)
+            {
+                _notificationService.TMarkAsUnread(id);
+                return Ok("Bildirim Okunmadı Olarak İşaretlendi.");
+            }
+            return Ok("Bildirim Durumu : Okunmadı. İşlem Yapılmadı.");
         }
     }
 }

@@ -1,0 +1,43 @@
+﻿@using SignalRWebUI.DTOs.TableDTOs
+@model List<ResultTableDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Masa Listesi</h4>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Masa Adı</th>
+                            <th>Kişi Sayısı</th>
+                            <th>Durum</th>
+                            <th>Güncelle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>@item.TableFor</td>
+                                <td>@item.Status</td>
+                                <td><a href="/Table/UpdateTable/@item.Id" class="btn btn-success">Güncelle</a></td>
+                                <td><a href="/Table/DeleteTable/@item.Id" class="badge badge-danger">Sil</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <a href="/Table/CreateTable" class="badge badge-info">Ekle</a>
+            </div>
+        </div>
+    </div>
+</div>

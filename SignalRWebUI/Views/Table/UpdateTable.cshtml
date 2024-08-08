@@ -1,0 +1,38 @@
+﻿@using SignalRWebUI.DTOs.TableDTOs
+@model UpdateTableDTO
+@{
+    ViewData["Title"] = "UpdateTable";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Masa Bilgilerini Güncelle</h4>
+            <form class="forms-sample" method="post">
+                <input type="hidden" asp-for="@Model.Id"/>
+                <div class="form-group">
+                    <label for="Name">Masa Adı</label>
+                    <input type="text" class="form-control" asp-for="Name" id="Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="TableFor">Kaç Kişilik</label>
+                    <input type="text" class="form-control" asp-for="TableFor" id="TableFor">
+                </div>
+
+                <div class="form-group">
+                    <label for="Status">Durum</label>
+                    <select class="form-control" asp-for="Status" id="Status">
+                        <option>True</option>
+                        <option>False</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+                <a href="/Table/Index" class="btn btn-dark">Çık</a>
+            </form>
+        </div>
+    </div>
+</div>
+

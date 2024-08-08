@@ -1,0 +1,41 @@
+﻿@using SignalRWebUI.DTOs.NotificationDTOs
+@model CreateNotificationDTO
+@{
+    ViewData["Title"] = "CreateNotification";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Bildirim Oluştur</h4>
+            <form class="forms-sample" method="post">
+                <div class="form-group">
+                    <label for="Name">Bildirim İçeriği</label>
+                    <input type="text" class="form-control" asp-for="Description" id="Description">
+                </div>
+
+                <div class="form-group">
+                    <label for="Status">Durum</label>
+                    <select class="form-control" asp-for="Status" id="Status">
+                        <option>True</option>
+                        <option>False</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="Status">Icon</label>
+                    <select class="form-control" asp-for="Icon" id="Icon">
+                        <option>Icon Seçiniz</option>
+                        <option value="-account-multiple-plus text-success">Rezervasyon</option>
+                        <option value="-alarm text-danger">Alım</option>
+                        <option value="-basket text-warning">Çalışan</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+                <a href="/Notification/Index" class="btn btn-dark">Çık</a>
+            </form>
+        </div>
+    </div>
+</div>

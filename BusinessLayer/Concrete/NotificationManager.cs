@@ -38,6 +38,11 @@ namespace BusinessLayer.Concrete
             return _notificationDal.GetListAll();
         }
 
+        public bool TGetStatus(int id)
+        {
+            return _notificationDal.GetStatus(id);
+        }
+
         public int TGetUnreadNotificationCount()
         {
             return _notificationDal.GetUnreadNotificationCount();
@@ -46,6 +51,16 @@ namespace BusinessLayer.Concrete
         public List<Notification> TGetUnreadNotificationList()
         {
             return _notificationDal.GetUnreadNotificationList();
+        }
+
+        public void TMarkAsRead(int id)
+        {
+            _notificationDal.MarkAsRead(id);
+        }
+
+        public void TMarkAsUnread(int id)
+        {
+            _notificationDal.MarkAsUnread(id);
         }
 
         public void TUpdate(Notification entity)

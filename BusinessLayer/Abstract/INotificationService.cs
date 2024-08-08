@@ -11,5 +11,8 @@ namespace BusinessLayer.Abstract
     {
         int TGetUnreadNotificationCount();
         List<Notification> TGetUnreadNotificationList();
+        void TMarkAsRead(int id);
+        void TMarkAsUnread(int id);
+        bool TGetStatus(int id);
     }
 }

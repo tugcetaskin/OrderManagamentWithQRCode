@@ -11,5 +11,8 @@ namespace DataAccessLayer.Abstract
     {
         int GetUnreadNotificationCount();
         List<Notification> GetUnreadNotificationList();
+        void MarkAsRead(int id);
+        void MarkAsUnread(int id);
+        bool GetStatus(int id);
     }
 }

@@ -16,6 +16,12 @@ namespace DataAccessLayer.EntityFramework
         {
         }
 
+        public bool GetStatus(int id)
+        {
+            using var _context = new Context();
+            return _context.Notifications.Where(x => x.Id == id).Select(x => x.Status).FirstOrDefault();
+        }
+
         public int GetUnreadNotificationCount()
         {
             using var _context = new Context();
@@ -26,6 +32,28 @@ namespace DataAccessLayer.EntityFramework
         {
             using var _context = new Context();
             return _context.Notifications.Where(x => !x.Status).ToList();
+        }
+
+        public void MarkAsRead(int id)
+        {
+            using var _context = new Context();
+            var notif = _context.Notifications.Where(x => x.Id == id).FirstOrDefault();
+            if(notif != null)
+            {
+                notif.Status = true;
+                _context.SaveChanges();
+            }
+        }
+
+        public void MarkAsUnread(int id)
+        {
+            using var _context = new Context();
+            var notif = _context.Notifications.Where(x => x.Id == id).FirstOrDefault();
+            if (notif != null)
+            {
+                notif.Status = false;
+                _context.SaveChanges();
+            }
         }
     }
 }

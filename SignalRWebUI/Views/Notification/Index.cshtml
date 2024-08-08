@@ -19,6 +19,8 @@
                             <th>Icon</th>
                             <th>Tarih</th>
                             <th>Durum</th>
+                            <th>Okundu</th>
+                            <th>Okunmadı</th>
                             <th>Güncelle</th>
                             <th>Sil</th>
                         </tr>
@@ -29,11 +31,13 @@
                             <tr>
                                 <td>@item.Id</td>
                                 <td>@item.Description</td>
-                                <td>@item.Icon</td>
+                                <td><i class="@item.Icon"></i></td>
                                 <td>@item.Date</td>
                                 <td>@item.Status</td>
-                                <td><a href="/Notification/UpdateNotification/@item.Id" class="btn btn-success">Güncelle</a></td>
-                                <td><a href="/Notification/DeleteNotification/@item.Id" class="badge badge-danger">Sil</a></td>
+                                <td><a href="/Notification/MarkAsRead/@item.Id" class="btn btn-primary"><i class="mdi mdi-read"></i></a></td>
+                                <td><a href="/Notification/MarkAsUnread/@item.Id" class="btn btn-warning"><i class="mdi mdi-backspace"></i></a></td>
+                                <td><a href="/Notification/UpdateNotification/@item.Id" class="btn btn-success"><i class="mdi mdi-refresh"></i></a></td>
+                                <td><a href="/Notification/DeleteNotification/@item.Id" class="badge badge-danger"><i class="mdi mdi-delete"></i></a></td>
                             </tr>
                         }
                     </tbody>
