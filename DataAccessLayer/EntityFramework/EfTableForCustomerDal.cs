@@ -16,6 +16,22 @@ namespace DataAccessLayer.EntityFramework
         {
         }
 
+        public void MarkAsAvaible(int id)
+        {
+            using var context = new Context();
+            var table = context.TableForCustomers.Where(x => x.Id == id).FirstOrDefault();
+            table.Status = true;
+            context.SaveChanges();
+        }
+
+        public void MarkAsFull(int id)
+        {
+            using var context = new Context();
+            var table = context.TableForCustomers.Where(x => x.Id == id).FirstOrDefault();
+            table.Status = false;
+            context.SaveChanges();
+        }
+
         public int TableCount()
         {
             using var context = new Context();

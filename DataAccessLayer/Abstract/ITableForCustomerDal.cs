@@ -10,5 +10,7 @@ namespace DataAccessLayer.Abstract
     public interface ITableForCustomerDal : IGenericDal<TableForCustomer>
     {
         int TableCount();
+        void MarkAsFull(int id);
+        void MarkAsAvaible(int id);
     }
 }

@@ -13,7 +13,8 @@ namespace SignalRApi.Hubs
         private readonly ITableForCustomerService _tableForCustomerService;
         private readonly IBookingService _bookingService;
         private readonly INotificationService _notificationService;
-        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableForCustomerService tableForCustomerService, IBookingService bookingService, INotificationService notificationService)
+        private readonly ITableForCustomerService _table;
+        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableForCustomerService tableForCustomerService, IBookingService bookingService, INotificationService notificationService, ITableForCustomerService table)
         {
             _categoryService = categoryService;
             _productService = productService;
@@ -22,6 +23,7 @@ namespace SignalRApi.Hubs
             _tableForCustomerService = tableForCustomerService;
             _bookingService = bookingService;
             _notificationService = notificationService;
+            _table = table;
         }
 
         public async Task SendStatistic()
@@ -93,6 +95,11 @@ namespace SignalRApi.Hubs
 
             var list = _notificationService.TGetUnreadNotificationList();
             await Clients.All.SendAsync("NotificationsList", list);
+        }
+        public async Task GetTableList()
+        {
+            var value = _table.TGetListAll();
+            await Clients.All.SendAsync("TableList", value);
         }
     }
 }

@@ -38,6 +38,16 @@ namespace BusinessLayer.Concrete
             return _tableForCustomerDal.GetListAll();
         }
 
+        public void TMarkAsAvaible(int id)
+        {
+            _tableForCustomerDal.MarkAsAvaible(id);
+        }
+
+        public void TMarkAsFull(int id)
+        {
+            _tableForCustomerDal.MarkAsFull(id);
+        }
+
         public int TTableCount()
         {
             return _tableForCustomerDal.TableCount();

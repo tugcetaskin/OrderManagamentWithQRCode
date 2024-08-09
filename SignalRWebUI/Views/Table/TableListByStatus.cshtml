@@ -1,0 +1,73 @@
+﻿@using SignalRWebUI.DTOs.TableDTOs
+@model List<ResultTableDTO>
+@{
+    ViewData["Title"] = "TableListByStatus";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    string isAvaible = "Boş";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(() => {
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7214/SignalRHub").build();
+        $("#connstatus").text(connection.state);
+
+        connection.start().then(() => {
+            $("#connstatus").text(connection.state);
+            setInterval(() => {
+                connection.invoke("GetTableList");
+            }, 5000);
+        }).catch((err) => { console.log(err) });
+
+        connection.on("TableList", (value) => {
+            console.log(value);
+            let list = ``;
+            $.each(value, (index, item) => {
+                let isAvaible = "";
+                let iconClass = "";
+                let icon = "";
+
+                if (item.status == false) {
+                    iconClass = "icon icon-box-danger";
+                    icon = '<span class="mdi mdi-window-close"></span>';
+                    isAvaible = "Dolu";
+                } else {
+                    iconClass = "icon icon-box-success";
+                    icon = '<span class="mdi mdi-check"></span>';
+                    isAvaible = "Boş";
+                }
+
+                list += `
+                         <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <div class="d-flex align-items-center align-self-start">
+                                                <h3 class="mb-0">${item.name}</h3>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="${iconClass}">
+                                                ${icon}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h6 class="text-muted font-weight-normal">${item.tableFor} Kişilik Masa | ${isAvaible}</h6>
+                                </div>
+                            </div>
+                        </div>`;
+            });
+            $('#listOfTable').html(list);
+        });
+    });
+</script>
+
+
+<div class="row" id="listOfTable">
+</div>
+

@@ -18,6 +18,8 @@
                             <th>Masa Adı</th>
                             <th>Kişi Sayısı</th>
                             <th>Durum</th>
+                            <th>Dolu</th>
+                            <th>Boş</th>
                             <th>Güncelle</th>
                             <th>Sil</th>
                         </tr>
@@ -29,9 +31,20 @@
                                 <td>@item.Id</td>
                                 <td>@item.Name</td>
                                 <td>@item.TableFor</td>
-                                <td>@item.Status</td>
-                                <td><a href="/Table/UpdateTable/@item.Id" class="btn btn-success">Güncelle</a></td>
-                                <td><a href="/Table/DeleteTable/@item.Id" class="badge badge-danger">Sil</a></td>
+                                <td>
+                                    @if(item.Status == true)
+                                    {
+                                        <p>Boş</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Dolu</p>
+                                    }
+                                </td>
+                                <td><a href="/Table/Full/@item.Id" class="btn btn-info">Dolu</a></td>
+                                <td><a href="/Table/Available/@item.Id" class="btn btn-primary">Boş</a></td>
+                                <td><a href="/Table/UpdateTable/@item.Id" class="btn btn-success"><i class="mdi mdi-refresh"></i></a></td>
+                                <td><a href="/Table/DeleteTable/@item.Id" class="badge badge-danger"><i class="mdi mdi-delete"></i></a></td>
                             </tr>
                         }
                     </tbody>

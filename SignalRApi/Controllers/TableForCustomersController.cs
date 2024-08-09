@@ -71,5 +71,19 @@ namespace SignalRApi.Controllers
             _tableForCustomerService.TDelete(value);
             return Ok("Masa Başarı İle Silindi.");
         }
+
+        [HttpGet("MarkAsAvailable/{id}")]
+        public IActionResult MarkAsAvailable(int id)
+        {
+            _tableForCustomerService.TMarkAsAvaible(id);
+            return Ok("Masa Müsait Olarak İşaretlendi.");
+        }
+
+        [HttpGet("MarkAsFull/{id}")]
+        public IActionResult MarkAsFull(int id)
+        {
+            _tableForCustomerService.TMarkAsFull(id);
+            return Ok("Masa Müsait Değil Olarak İşaretlendi.");
+        }
     }
 }

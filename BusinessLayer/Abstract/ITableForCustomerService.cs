@@ -10,5 +10,7 @@ namespace BusinessLayer.Abstract
     public interface ITableForCustomerService : IGenericService<TableForCustomer>
     {
         int TTableCount();
+        void TMarkAsFull(int id);
+        void TMarkAsAvaible(int id);
     }
 }

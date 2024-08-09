@@ -75,6 +75,27 @@ namespace SignalRWebUI.Controllers
             return View(table);
         }
 
+        public async Task<IActionResult> Full(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync($"https://localhost:7214/api/TableForCustomers/MarkAsFull/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Available(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync($"https://localhost:7214/api/TableForCustomers/MarkAsAvailable/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
         public async Task<IActionResult> DeleteTable(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -84,6 +105,20 @@ namespace SignalRWebUI.Controllers
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> TableListByStatus()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync("https://localhost:7214/api/TableForCustomers/GetTableList");
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var jsonData = JsonConvert.DeserializeObject<List<ResultTableDTO>>(content);
+                return View(jsonData);
+            }
+            return View();
         }
     }
 }
