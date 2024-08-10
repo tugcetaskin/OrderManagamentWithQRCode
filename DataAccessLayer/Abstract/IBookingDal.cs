@@ -9,5 +9,7 @@ namespace DataAccessLayer.Abstract
 {
     public interface IBookingDal : IGenericDal<Booking>
     {
+        void ConfirmRezervation(int id);
+        void CancelRezervation(int id);
     }
 }

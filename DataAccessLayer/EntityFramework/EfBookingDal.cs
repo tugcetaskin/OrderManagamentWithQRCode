@@ -15,5 +15,21 @@ namespace DataAccessLayer.EntityFramework
         public EfBookingDal(Context context) : base(context)
         {
         }
+
+        public void CancelRezervation(int id)
+        {
+            using var _context = new Context();
+            var value = _context.Bookings.Where(x => x.Id == id).FirstOrDefault();
+            value.Description = "Rezervasyon İptal Edildi";
+            _context.SaveChanges();
+        }
+
+        public void ConfirmRezervation(int id)
+        {
+            using var _context = new Context();
+            var value = _context.Bookings.Where(x => x.Id == id).FirstOrDefault();
+            value.Description = "Rezervasyon Onaylandı";
+            _context.SaveChanges();
+        }
     }
 }

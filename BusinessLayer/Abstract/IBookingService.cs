@@ -9,5 +9,7 @@ namespace BusinessLayer.Abstract
 {
     public interface IBookingService : IGenericService<Booking>
     {
+        void TConfirmRezervation(int id);
+        void TCancelRezervation(int id);
     }
 }

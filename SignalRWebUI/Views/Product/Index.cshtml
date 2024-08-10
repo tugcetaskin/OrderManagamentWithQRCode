@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
 }
 
 <div class="col-lg-12 grid-margin stretch-card">
@@ -25,8 +26,9 @@
                     <tbody>
                         @foreach(var item in Model)
                         {
+                            count++;
                             <tr>
-                                <td> @item.Id </td>
+                                <td> @count </td>
                                 <td class="py-1">
                                     <img src="@item.ImageUrl" alt="image" />
                                 </td>
@@ -34,8 +36,8 @@
                                 <td> @item.CategoryName </td>
                                 <td> @item.Price </td>
                                 <td> @item.Status </td>
-                                <td> <a href="/Product/Update/@item.Id" class="btn btn-success">Güncelle</a> </td>
-                                <td><a href="/Product/Delete/@item.Id" class="badge badge-danger">Sil</a></td>
+                                <td> <a href="/Product/Update/@item.Id" class="btn btn-success"><i class="mdi mdi-refresh"></i></a> </td>
+                                <td><a href="/Product/Delete/@item.Id" class="badge badge-danger"><i class="mdi mdi-delete"></i></a></td>
                             </tr>
                         }
                     </tbody>
