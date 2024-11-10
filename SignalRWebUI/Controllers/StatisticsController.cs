@@ -4,7 +4,7 @@ namespace SignalRWebUI.Controllers
 {
     public class StatisticsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult InstantData()
         {
             return View();
         }

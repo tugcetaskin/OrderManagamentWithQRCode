@@ -84,5 +84,12 @@ namespace SignalRApi.Controllers
             return Ok(id);
         }
 
+		[HttpGet("BasketIdByTable")]
+		public IActionResult BasketIdByTable(int tableID)
+		{
+            var id = _basketService.TGetBasketIdByTable(tableID);
+			return Ok(id);
+		}
+
 	}
 }

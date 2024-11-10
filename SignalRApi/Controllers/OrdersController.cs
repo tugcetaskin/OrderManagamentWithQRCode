@@ -48,14 +48,9 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult CreateOrder(CreateOrderDTO dto)
         {
-            _orderService.TAdd(new Order()
-            {
-                TableNumber = dto.TableNumber,
-                Description = dto.Description,
-                Date = DateTime.Now,
-                TotalPrice = dto.TotalPrice,
-                OrderDetail = dto.OrderDetail,
-            });
+            dto.Date = DateTime.Now;
+            var value = _mapper.Map<Order>(dto);
+            _orderService.TAdd(value);
             return Ok("Sipariş Eklendi.");
         }
     }

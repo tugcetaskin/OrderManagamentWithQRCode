@@ -30,11 +30,8 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateSlider(CreateSliderDTO sliderDto)
         {
-            _sliderService.TAdd(new Slider()
-            {
-                Title = sliderDto.Title,
-                Description = sliderDto.Description,
-            });
+            var value = _mapper.Map<Slider>(sliderDto);
+            _sliderService.TAdd(value);
             return Ok("Slider Başarıyla Eklendi");
         }
 
@@ -53,19 +50,15 @@ namespace SignalRApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateSlider(UpdateSliderDTO sliderDto)
         {
-            _sliderService.TUpdate(new Slider()
-            {
-                Id = sliderDto.Id,
-                Title = sliderDto.Title,
-                Description = sliderDto.Description,
-            });
+            var value = _mapper.Map<Slider>(sliderDto);
+            _sliderService.TUpdate(value);
             return Ok("Slider Başarıyla Güncellendi.");
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSlider(int id)
         {
-            var slider = _sliderService.TGetById(id);
+            var slider = _mapper.Map<GetSliderDTO>(_sliderService.TGetById(id));
             return Ok(slider);
         }
     }

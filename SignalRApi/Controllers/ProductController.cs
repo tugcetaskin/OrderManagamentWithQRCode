@@ -78,31 +78,16 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult CreateProduct(CreateProductDTO productDTO)
         {
-            _productService.TAdd(new Product()
-            {
-                Name = productDTO.Name,
-                Description = productDTO.Description,
-                Price = productDTO.Price,
-                ImageUrl = productDTO.ImageUrl,
-                Status = productDTO.Status,
-                CategoryId = productDTO.CategoryId
-            });
+            var value = _mapper.Map<Product>(productDTO);
+            _productService.TAdd(value);
             return Ok("Ürün Başarılı Bir Şekilde Eklendi");
         }
 
         [HttpPut]
         public IActionResult UpdateProduct(UpdateProductDTO productDTO)
         {
-            _productService.TUpdate(new Product()
-            {
-                Id = productDTO.Id,
-                Name = productDTO.Name,
-                Description = productDTO.Description,
-                Price = productDTO.Price,
-                ImageUrl = productDTO.ImageUrl,
-                Status = productDTO.Status,
-                CategoryId = productDTO.CategoryId
-            });
+            var value = _mapper.Map<Product>(productDTO);
+            _productService.TUpdate(value);
             return Ok("Ürün Güncellendi");
         }
 
@@ -117,8 +102,15 @@ namespace SignalRApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetProduct(int id)
         {
-            var value = _productService.TGetById(id);
+            var value = _mapper.Map<GetProductDTO>(_productService.TGetById(id));
             return Ok(value);
+        }
+
+        [HttpGet("GetNineProduct")]
+        public IActionResult GetNineProduct()
+        {
+            var result = _mapper.Map<List<ResultProductWithCategory>>(_productService.TGetNineProducts());
+            return Ok(result);
         }
     }
 }

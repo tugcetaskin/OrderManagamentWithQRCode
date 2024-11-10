@@ -15,5 +15,12 @@ namespace DataAccessLayer.EntityFramework
         public EfContactDal(Context context) : base(context)
         {
         }
+
+        public Contact GetLast()
+        {
+            using var context = new Context();
+            var value = context.Contacts.OrderByDescending(x => x.Id).Take(1).FirstOrDefault();
+            return value;
+        }
     }
 }

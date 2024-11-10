@@ -19,7 +19,8 @@ namespace DataAccessLayer.EntityFramework
         public decimal TotalMoneyCaseAmount()
         {
             using var context = new Context();
-            return context.MoneyCases.Select(x => x.TotalAmount).FirstOrDefault();
+            var value = context.MoneyCases.Select(x => x.TotalAmount).FirstOrDefault();
+            return value;
         }
     }
 }

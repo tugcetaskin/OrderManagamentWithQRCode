@@ -30,7 +30,7 @@ namespace SignalRApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetTableById(int id)
         {
-            var value = _tableForCustomerService.TGetById(id);
+            var value = _mapper.Map<GetTableDTO>(_tableForCustomerService.TGetById(id));
             return Ok(value);
         }
 
@@ -44,22 +44,15 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult CreateTable(CreateTableDTO table)
         {
-            _tableForCustomerService.TAdd(new TableForCustomer()
-            {
-                Name = table.Name,
-                Status = table.Status,
-                TableFor = table.TableFor
-            });
+            var value = _mapper.Map<TableForCustomer>(table);
+            _tableForCustomerService.TAdd(value);
             return Ok("Masa Başarı İle Eklendi.");
         }
 
         [HttpPut]
         public IActionResult UpdateTable(UpdateTableDTO table)
         {
-            var value = _tableForCustomerService.TGetById(table.Id);
-            value.Status = table.Status;
-            value.Name = table.Name;
-            value.TableFor = table.TableFor;
+            var value = _mapper.Map<TableForCustomer>(table);
             _tableForCustomerService.TUpdate(value);
             return Ok("Masa Başarı İle Güncellendi.");
         }
@@ -85,5 +78,26 @@ namespace SignalRApi.Controllers
             _tableForCustomerService.TMarkAsFull(id);
             return Ok("Masa Müsait Değil Olarak İşaretlendi.");
         }
-    }
+
+        [HttpGet("TableId/{name}")]
+        public IActionResult TableId(string name)
+        {
+            var id = _tableForCustomerService.TGetTableIDByName(name);
+            return Ok(id);
+        }
+
+        [HttpGet("NewTableNumber")]
+        public IActionResult NewTableNumber()
+        {
+            var num = _tableForCustomerService.TNewTableId();
+            return Ok(num);
+        }
+
+        [HttpGet("AvailableOnlineTable")]
+        public IActionResult AvailableOnlineTable()
+        {
+            var table = _tableForCustomerService.TAvailableOnlineTable();
+            return Ok(table);
+        }
+	}
 }

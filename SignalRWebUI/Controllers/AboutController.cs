@@ -13,8 +13,7 @@ namespace SignalRWebUI.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
-
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> About()
         {
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7214/api/About/");
@@ -43,7 +42,7 @@ namespace SignalRWebUI.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7214/api/About/", content);
             if(responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("About");
             }
             return View();
         }
@@ -54,9 +53,9 @@ namespace SignalRWebUI.Controllers
             var responseMessage = await client.DeleteAsync($"https://localhost:7214/api/About/{id}");
             if(responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("About");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("About");
         }
 
         [HttpGet]
@@ -82,7 +81,7 @@ namespace SignalRWebUI.Controllers
             var responseMessage = await client.PutAsync("https://localhost:7214/api/About/", content);
             if(responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("About");
             }
             return View();
         }

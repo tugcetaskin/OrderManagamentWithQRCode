@@ -41,5 +41,12 @@ namespace DataAccessLayer.EntityFramework
 			}
 			return basket.Id;
 		}
+
+		public int GetBasketIdByTable(int tableId)
+		{
+			using var _context = new Context();
+			var basket = _context.Baskets.Where(x => x.TableId == tableId).FirstOrDefault();
+			return basket.Id;
+		}
 	}
 }

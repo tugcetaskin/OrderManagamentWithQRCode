@@ -1,4 +1,6 @@
-﻿<footer class="footer_section">
+﻿@using SignalRWebUI.DTOs.ContactDTOs
+@model GetContactDTO
+<footer class="footer_section">
     <div class="container">
         <div class="row">
             <div class="col-md-4 footer-col">
@@ -10,19 +12,19 @@
                         <a href="">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                             <span>
-                                Konum
+                                @Model.Location
                             </span>
                         </a>
                         <a href="">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <span>
-                                +01 1234567890
+                                @Model.Phone
                             </span>
                         </a>
                         <a href="">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                             <span>
-                                demo@gmail.com
+                                @Model.Email
                             </span>
                         </a>
                     </div>
@@ -34,46 +36,32 @@
                         DIOVOR
                     </a>
                     <p>
-                        Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+                        @Model.FooterDescription
                     </p>
                     <div class="footer_social">
-                        <a href="">
-                            <i class="fa fa-facebook" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-linkedin" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-instagram" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-pinterest" aria-hidden="true"></i>
-                        </a>
+                        @if (ViewBag.Social != null)
+                        {
+                            foreach (var item in ViewBag.Social)
+                            {
+                                <a href="@item.Url">
+                                    <i class="fa fa-@item.Icon" aria-hidden="true"></i>
+                                </a>
+                            }
+                        }
                     </div>
                 </div>
             </div>
             <div class="col-md-4 footer-col">
                 <h4>
-                    Açılış Saatleri
+                    @Model.OpenInfoTitle
                 </h4>
                 <p>
-                    Her Gün
+                    @Model.OpenDaysInfo
                 </p>
                 <p>
-                    10.00 Am -10.00 Pm
+                    @Model.OpenHoursInfo
                 </p>
             </div>
-        </div>
-        <div class="footer-info">
-            <p>
-                &copy; <span id="displayYear"></span> All Rights Reserved By
-                <a href="https://html.design/">Free Html Templates</a><br><br>
-                &copy; <span id="displayYear"></span> Distributed By
-                <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-            </p>
         </div>
     </div>
 </footer>

@@ -14,7 +14,7 @@ namespace SignalRWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Referances()
         {
             var client = _httpClientFactory.CreateClient();
             var responseMes = await client.GetAsync("https://localhost:7214/api/Testimonial");
@@ -33,9 +33,9 @@ namespace SignalRWebUI.Controllers
             var responseMes = await client.DeleteAsync($"https://localhost:7214/api/Testimonial/{id}");
             if(responseMes.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Referances");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Referances");
         }
 
         [HttpGet]
@@ -54,7 +54,7 @@ namespace SignalRWebUI.Controllers
             var responseMes = await client.PostAsync("https://localhost:7214/api/Testimonial/", content);
             if(responseMes.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Referances");
             }
             return View();
         }
@@ -82,7 +82,7 @@ namespace SignalRWebUI.Controllers
             var responseMes = await client.PutAsync("https://localhost:7214/api/Testimonial/", content);
             if(responseMes.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Referances");
             }
             return View();
         }

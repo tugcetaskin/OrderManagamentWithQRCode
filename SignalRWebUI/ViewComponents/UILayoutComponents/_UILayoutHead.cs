@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SignalRWebUI.ViewComponents.UILayoutComponents
 {
-	public class _UILayoutHead : ViewComponent
+    [AllowAnonymous]
+    public class _UILayoutHead : ViewComponent
 	{
 		public IViewComponentResult Invoke()
 		{

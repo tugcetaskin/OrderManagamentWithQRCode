@@ -10,6 +10,7 @@ namespace BusinessLayer.Abstract
     public interface IProductService : IGenericService<Product>
     {
         List<Product> TGetProductsWithCategories();
+        List<Product> TGetNineProducts();
         public int TGetProductCount();
         int TProductNumberByCategoryMain();
         int TProductNumberByCategoryDessert();

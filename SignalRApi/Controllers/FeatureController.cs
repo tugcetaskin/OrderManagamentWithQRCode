@@ -39,38 +39,23 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult CreateFeature(CreateFeatureDTO featureDTO)
         {
-            _featureService.TAdd(new Feature()
-            {
-                Title1 = featureDTO.Title1,
-                Description1 = featureDTO.Description1,
-                Title2 = featureDTO.Title2,
-                Description2 = featureDTO.Description2,
-                Title3 = featureDTO.Title3,
-                Description3 = featureDTO.Description3
-            });
+            var value = _mapper.Map<Feature>(featureDTO);
+            _featureService.TAdd(value);
             return Ok("Öne Çıkan Alanı Başarılı Bir Şekilde Eklendi");
         }
 
         [HttpPut]
         public IActionResult UpdateFeature(UpdateFeatureDTO featureDTO)
         {
-            _featureService.TUpdate(new Feature()
-            {
-                Id = featureDTO.Id,
-                Title1 = featureDTO.Title1,
-                Description1 = featureDTO.Description1,
-                Title2 = featureDTO.Title2,
-                Description2 = featureDTO.Description2,
-                Title3 = featureDTO.Title3,
-                Description3 = featureDTO.Description3
-            });
+            var value = _mapper.Map<Feature>(featureDTO);
+            _featureService.TUpdate(value);
             return Ok("Öne Çıkan Alanı Güncellendi");
         }
 
         [HttpGet("{id}")]
         public IActionResult GetFeature(int id)
         {
-            var value = _featureService.TGetById(id);
+            var value = _mapper.Map<GetFeatureDTO>(_featureService.TGetById(id));
             return Ok(value);
         }
     }

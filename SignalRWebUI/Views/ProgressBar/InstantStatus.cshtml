@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(() => {
+        var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7214/SignalRHub").build();
+        $("#connstatus").text(connection.state);
+
+        connection.start().then(() => {
+            $("#connstatus").text(connection.state)
+            connection.invoke("SendProgress");
+        }).catch((err) => { console.log(err) });
+
+        connection.on("ReceiveTotalMoneyCaseAmount", (value) => {
+            $("#totalMoney").empty();
+            $("#totalMoney").append(`
+                <div class="card">
+                <div class="card-body">
+                    <h5>Toplam Masa</h5>
+                    <div class="row" >
+                        <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                            <div class="progress progress-md portfolio-progress">
+                                <div class="progress-bar alert-info" role="progressbar" style="width: ${value}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                                <p class="text-muted">${value} ₺ </p>
+                        </div>
+                        <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                            <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>`);
+        });
+
+        connection.on("ReceiveAvarageProductPrice", (value2) => {
+            $("#avarageProductPrice").empty();
+            $("#avarageProductPrice").append(`
+                    <div class="card">
+                    <div class="card-body">
+                        <h5>Toplam Masa</h5>
+                        <div class="row" >
+                            <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                <div class="progress progress-md portfolio-progress">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: ${value2}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                    <p class="text-muted">${value2} ₺ </p>
+                            </div>
+                            <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>`);
+        });
+
+        connection.on("ReceiveAvarageMainMealPrice", (value3) => {
+            $("#avarageMainMeaPrice").empty();
+            $("#avarageMainMeaPrice").append(`
+                        <div class="card">
+                        <div class="card-body">
+                            <h5>Ortalama Ana Yemek Tutarı</h5>
+                            <div class="row" >
+                                <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                    <div class="progress progress-md portfolio-progress">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: ${value3}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                        <p class="text-muted">${value3} ₺ </p>
+                                </div>
+                                <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                        <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`);
+        });
+
+        connection.on("ReceiveDiscountPercentage", (value4) => {
+            $("#discountPercentage").empty();
+            $("#discountPercentage").append(`
+                    <div class="card">
+                    <div class="card-body">
+                        <h5>Ortalama İndirim Yüzdesi</h5>
+                        <div class="row" >
+                            <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                <div class="progress progress-md portfolio-progress">
+                                    <div class="progress-bar alert-info" role="progressbar" style="width: ${value4}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                        <p class="text-muted"> % ${value4} </p>
+                            </div>
+                            <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                <i class="icon-lg mdi mdi-codepen text-primary ml-auto"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>`);
+        });
+
+        connection.on("ReceiveBiggestDiscount", (value5) => {
+            $("#biggestDiscount").empty();
+            $("#biggestDiscount").append(`
+                        <div class="card">
+                        <div class="card-body">
+                            <h5>En Büyük İndirim Oranı</h5>
+                            <div class="row" >
+                                <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                    <div class="progress progress-md portfolio-progress">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: ${value5}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                            <p class="text-muted"> % ${value5} </p>
+                                </div>
+                                <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                    <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`);
+        });
+
+        connection.on("ReceiveSmallestDiscount", (value6) => {
+            $("#smallestDiscount").empty();
+            $("#smallestDiscount").append(`
+                            <div class="card">
+                            <div class="card-body">
+                                <h5>En Küçük İndirim Oranı</h5>
+                                <div class="row" >
+                                    <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                        <div class="progress progress-md portfolio-progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: ${value6}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                            <p class="text-muted"> % ${value6} </p>
+                                    </div>
+                                    <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                            <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`);
+        });
+    })
+</script>
+
+<div class="row">
+    <div class="col-sm-4 grid-margin" id="totalMoney">
+        
+    </div>
+    <div class="col-sm-4 grid-margin" id="avarageProductPrice">
+        
+    </div>
+    <div class="col-sm-4 grid-margin" id="avarageMainMeaPrice">
+        
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4 grid-margin" id="discountPercentage">
+    </div>
+    <div class="col-sm-4 grid-margin" id="biggestDiscount">
+    </div>
+    <div class="col-sm-4 grid-margin" id="smallestDiscount">
+    </div>
+</div>

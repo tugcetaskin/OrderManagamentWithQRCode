@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SignalRWebUI.DTOs.FeatureDTOs;
@@ -6,6 +7,7 @@ using SignalRWebUI.DTOs.SliderDTOs;
 
 namespace SignalRWebUI.ViewComponents.UILayoutComponents
 {
+    [AllowAnonymous]
     public class _UILayoutSliderSection : ViewComponent
     {
         private readonly IHttpClientFactory _httpClientFactory;

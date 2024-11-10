@@ -14,7 +14,7 @@ namespace SignalRWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> TableList()
         {
             var client = _httpClientFactory.CreateClient();
             var response = await client.GetAsync("https://localhost:7214/api/TableForCustomers/GetTableList");
@@ -42,7 +42,7 @@ namespace SignalRWebUI.Controllers
             var response = await client.PostAsync("https://localhost:7214/api/TableForCustomers/", content);
             if(response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("TableList");
             }
             return View(table);
         }
@@ -70,7 +70,7 @@ namespace SignalRWebUI.Controllers
             var response = await client.PutAsync("https://localhost:7214/api/TableForCustomers", content);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("TableList");
             }
             return View(table);
         }
@@ -81,9 +81,9 @@ namespace SignalRWebUI.Controllers
             var response = await client.GetAsync($"https://localhost:7214/api/TableForCustomers/MarkAsFull/{id}");
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("TableList");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("TableList");
         }
 
         public async Task<IActionResult> Available(int id)
@@ -92,9 +92,9 @@ namespace SignalRWebUI.Controllers
             var response = await client.GetAsync($"https://localhost:7214/api/TableForCustomers/MarkAsAvailable/{id}");
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("TableList");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("TableList");
         }
         public async Task<IActionResult> DeleteTable(int id)
         {
@@ -102,9 +102,9 @@ namespace SignalRWebUI.Controllers
             var response = await client.DeleteAsync($"https://localhost:7214/api/TableForCustomers/{id}");
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("TableList");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("TableList");
         }
 
         [HttpGet]

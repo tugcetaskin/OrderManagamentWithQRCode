@@ -14,7 +14,7 @@ namespace SignalRWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> DiscountList()
         {
             var client = _httpClientFactory.CreateClient();
             var responseMes = await client.GetAsync("https://localhost:7214/api/Discount");
@@ -33,9 +33,9 @@ namespace SignalRWebUI.Controllers
             var responseMes = await client.DeleteAsync($"https://localhost:7214/api/Discount/{id}");
             if (responseMes.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("DiscountList");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("DiscountList");
         }
 
         [HttpGet]
@@ -54,7 +54,7 @@ namespace SignalRWebUI.Controllers
             var responseMes = await client.PostAsync("https://localhost:7214/api/Discount/", content);
             if (responseMes.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("DiscountList");
             }
             return View();
         }
@@ -82,9 +82,16 @@ namespace SignalRWebUI.Controllers
             var responseMes = await client.PutAsync("https://localhost:7214/api/Discount/", content);
             if (responseMes.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("DiscountList");
             }
             return View();
+        }
+
+        public async Task<IActionResult> ChangeStatus(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            await client.GetAsync($"https://localhost:7214/api/Discount/ChangeStatus/{id}");
+            return RedirectToAction("DiscountList");
         }
     }
 }

@@ -23,6 +23,21 @@ namespace BusinessLayer.Concrete
             _discountDal.Add(entity);
         }
 
+        public decimal TAvarageDiscountPercentage()
+        {
+            return _discountDal.AvarageDiscountPercentage();
+        }
+
+        public int TBiggestDiscount()
+        {
+            return _discountDal.BiggestDiscount();
+        }
+
+        public void TChangeStatus(int id)
+        {
+            _discountDal.ChangeStatus(id);
+        }
+
         public void TDelete(Discount entity)
         {
             _discountDal.Delete(entity);
@@ -33,9 +48,19 @@ namespace BusinessLayer.Concrete
             return _discountDal.GetById(id);
         }
 
+        public List<Discount> TGetLastTwo()
+        {
+            return _discountDal.GetLastTwo();
+        }
+
         public List<Discount> TGetListAll()
         {
             return _discountDal.GetListAll();
+        }
+
+        public int TSmallestDiscount()
+        {
+            return _discountDal.SmallestDiscount();
         }
 
         public void TUpdate(Discount entity)

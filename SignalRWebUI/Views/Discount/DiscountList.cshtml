@@ -1,0 +1,60 @@
+﻿@model List<SignalRWebUI.DTOs.DiscountDTOs.ResultDiscountDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">İndirim Listesi</h4>
+            <p>2 den fazla TRUE drumlu indirim olması halinde <strong>eklenen son 2</strong> indirim kullanıcı ekranında görünüyor olacak.</p>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Resim</th>
+                            <th>Başlık</th>
+                            <th>Açıklama</th>
+                            <th>Miktar</th>
+                            <th>Durum</th>
+                            <th>Durumu Değiştir</th>
+                            <th>Güncelle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td> @item.Id </td>
+                                <td class="py-1">
+                                    <img src="@item.ImageUrl" alt="image" />
+                                </td>
+                                <td>@item.Title</td>
+                                <td>@(item.Description.Length > 30 ? item.Description.Substring(0,30) + "..." : item.Description )</td>
+                                <td>@item.Amount</td>
+                                <td>@item.Status</td>
+                                <td> <a href="/Discount/ChangeStatus/@item.Id" class="btn btn-primary">
+                                        @if(item.Status == true)
+                                        {
+                                            <p>False</p>
+                                        }
+                                        else
+                                        {
+                                            <p>True</p>
+                                        }
+                                    </a> </td>
+                                <td> <a href="/Discount/Update/@item.Id" class="btn btn-success"><i class="mdi mdi-refresh"></i></a> </td>
+                                <td><a href="/Discount/Delete/@item.Id" class="badge badge-danger"><i class="mdi mdi-delete"></i></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <a href="/Discount/Create" class="badge badge-info">Ekle</a>
+            </div>
+        </div>
+    </div>
+</div>

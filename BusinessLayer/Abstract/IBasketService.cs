@@ -12,5 +12,6 @@ namespace BusinessLayer.Abstract
         List<Basket> TGetBasketByTableNum(int id);
 		Basket TGetBasketByProductAndTable(int productId, int tableId);
 		int TGetBasketIdByPAndT(int productId, int tableId);
+		int TGetBasketIdByTable(int tableId);
 	}
 }

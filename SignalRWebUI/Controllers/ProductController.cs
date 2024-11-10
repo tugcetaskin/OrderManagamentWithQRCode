@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EntityLayer.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using SignalRWebUI.DTOs.BasketDTOs;
 using SignalRWebUI.DTOs.CategoryDTOs;
@@ -17,7 +20,12 @@ namespace SignalRWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        [AllowAnonymous]
+        public IActionResult Menu()
+        {
+            return View();
+        }
+        public async Task<IActionResult> MenuList()
         {
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7214/api/Product/ProductListWithCategory");
@@ -61,7 +69,7 @@ namespace SignalRWebUI.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7214/api/Product", content);
             if(responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("MenuList");
             }
             return View();
         }
@@ -72,7 +80,7 @@ namespace SignalRWebUI.Controllers
             var responseMessage = await client.DeleteAsync($"https://localhost:7214/api/Product/{id}");
             if(responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("MenuList");
             }
             return View();
         }
@@ -114,26 +122,84 @@ namespace SignalRWebUI.Controllers
             var responseMessage = await client.PutAsync("https://localhost:7214/api/Product/", content);
             if(responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("MenuList");
             }
             return View();
         }
 
+        public async Task<TableForCustomer> AvailableTable()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var resTable = await client.GetAsync("https://localhost:7214/api/TableForCustomers/AvailableOnlineTable");
+            if (resTable.IsSuccessStatusCode)
+            {
+                var json = await resTable.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<TableForCustomer>(json);
+
+                data.Status = true;
+                var jsonTable = JsonConvert.SerializeObject(data);
+                StringContent tableContent = new StringContent(jsonTable, Encoding.UTF8, "application/json");
+                var mess = await client.PutAsync("https://localhost:7214/api/TableForCustomers/", tableContent);
+                return data;
+            }
+            return null;
+        }
+        public async Task<TableForCustomer> NewTable()
+        {
+			var client = _httpClientFactory.CreateClient();
+			var resTable = await client.GetAsync("https://localhost:7214/api/TableForCustomers/NewTableNumber");
+			if (resTable.IsSuccessStatusCode)
+			{
+				var json = await resTable.Content.ReadAsStringAsync();
+				int tableId = Convert.ToInt32((string)json);
+				TableForCustomer online = new TableForCustomer()
+				{
+					Id = tableId,
+					Name = "Online",
+					Status = true,
+					TableFor = 4,
+				};
+                var jsonTable = JsonConvert.SerializeObject(online);
+                var content = new StringContent(jsonTable, Encoding.UTF8, "application/json");
+				var create = await client.PostAsync("https://localhost:7214/api/TableForCustomers/", content);
+                if(create.IsSuccessStatusCode)
+                {
+                    return online;
+                }
+				throw new Exception("Yeni Masa Üretilemedi!");
+			}
+			throw new Exception("Yeni Masa Id Üretilemedi!");
+		}
 		[HttpPost]
-		public async Task<IActionResult> AddToBasket(int id)
+		public async Task<IActionResult> AddToBasket(int id, int tableId)
 		{
+			var client = _httpClientFactory.CreateClient();
+
+			if (tableId == 0 || tableId == null)
+            {
+                var available = await AvailableTable();
+                if (available == null)
+                {
+					var table = await NewTable();
+					tableId = table.Id;
+				}
+                else
+                {
+                    tableId = available.Id;
+                }
+			}
             CreateBasketDTO basket = new CreateBasketDTO()
             {
                 ProductId = id,
-                TableId = 1,
+                TableId = tableId,
             };
-			var client = _httpClientFactory.CreateClient();
+			
 			var jsonData = JsonConvert.SerializeObject(basket);
 			StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 			var responseMes = await client.PostAsync("https://localhost:7214/api/Basket/", content);
 			if (responseMes.IsSuccessStatusCode)
 			{
-				return RedirectToAction("Index");
+				return RedirectToAction("Index", "Basket", new { tableId = tableId });
 			}
 			return Json(basket);
 		}

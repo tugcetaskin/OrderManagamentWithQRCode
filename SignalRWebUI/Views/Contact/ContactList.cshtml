@@ -1,0 +1,53 @@
+﻿@using SignalRWebUI.DTOs.ContactDTOs
+@model List<ResultContactDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">İletişim Bilgileri</h4>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Konum</th>
+                            <th>Telefon</th>
+                            <th>Email</th>
+                            <th>Footer Açıklaması</th>
+                            <th>Başlık</th>
+                            <th>Açık Günler</th>
+                            <th>Açık Saatler</th>
+                            <th>Güncelle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>Konum</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Email</td>
+                                <td>@(item.FooterDescription.Length > 20 ? item.FooterDescription.Substring(0, 20) + "..." : item.FooterDescription)</td>
+                                <td>@item.OpenInfoTitle</td>
+                                <td>@item.OpenDaysInfo</td>
+                                <td>@item.OpenHoursInfo</td>
+                                <td><a href="/Contact/Update/@item.Id" class="btn btn-success"><i class="mdi mdi-refresh"></i></a></td>
+                                <td><a href="/Contact/Delete/@item.Id" class="badge badge-danger"><i class="mdi mdi-delete"></i></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @if(Model == null)
+                {
+                    <a href="/Contact/Create" class="badge badge-info">Ekle</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

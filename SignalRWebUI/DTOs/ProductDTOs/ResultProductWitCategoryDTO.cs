@@ -1,4 +1,6 @@
-﻿namespace SignalRWebUI.DTOs.ProductDTOs
+﻿using EntityLayer.Entities;
+
+namespace SignalRWebUI.DTOs.ProductDTOs
 {
     public class ResultProductWitCategoryDTO
     {

@@ -12,5 +12,8 @@ namespace BusinessLayer.Abstract
         int TTableCount();
         void TMarkAsFull(int id);
         void TMarkAsAvaible(int id);
-    }
+        int TGetTableIDByName(string name);
+		int TNewTableId();
+		TableForCustomer TAvailableOnlineTable();
+	}
 }

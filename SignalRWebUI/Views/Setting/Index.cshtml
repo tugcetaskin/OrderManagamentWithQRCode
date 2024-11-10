@@ -1,0 +1,47 @@
+﻿@using SignalRWebUI.DTOs.IdentityDTOs
+@model UserSettingDTO
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Kullanıcı Ayarları</h4>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="Name" placeholder="İsim" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="Surname" placeholder="Soyisim" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" asp-for="Username" placeholder="Kullanıcı Adı" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input type="email" class="form-control" asp-for="Email" placeholder="Email" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" asp-for="Password" placeholder="Password" disabled>
+                </div>
+            </div>
+            <a href="/Setting/Update" class="btn btn-primary">Güncelle</a>
+        </div>
+    </div>
+</div>
+
+

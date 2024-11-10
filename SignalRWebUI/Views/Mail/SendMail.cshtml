@@ -1,0 +1,34 @@
+﻿@using SignalRWebUI.DTOs.MailDTOs
+@model CreateMailDTO
+@{
+    ViewData["Title"] = "SendMail";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Mail Gönder</h4>
+            <form class="forms-sample" method="post">
+                
+                <div class="form-group">
+                    <label for="Phone">Alıcı Mail</label>
+                    <input type="text" class="form-control" asp-for="ReceiverEmail" id="Phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="Email">Konu</label>
+                    <input type="text" class="form-control" asp-for="Subject" id="Email">
+                </div>
+
+                <div class="form-group">
+                    <label for="PersonCount">İçerik</label>
+                    <textarea rows="5" type="text" class="form-control" asp-for="Body" id="PersonCount"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
+                <a href="/Mail/MailList" class="btn btn-dark">Çık</a>
+            </form>
+        </div>
+    </div>
+</div>

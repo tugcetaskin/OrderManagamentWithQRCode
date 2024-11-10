@@ -9,5 +9,12 @@ namespace DataAccessLayer.Abstract
 {
     public interface IDiscountDal : IGenericDal<Discount>
     {
+        void ChangeStatus(int id);
+        List<Discount> GetLastTwo();
+
+        decimal AvarageDiscountPercentage();
+
+        int BiggestDiscount();
+        int SmallestDiscount();
     }
 }

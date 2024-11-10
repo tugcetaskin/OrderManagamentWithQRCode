@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SignalRWebUI.DTOs.AboutDTOs;
 
 namespace SignalRWebUI.ViewComponents.UILayoutComponents
 {
+    [AllowAnonymous]
     public class SectionOfAbout : ViewComponent
     {
         private readonly IHttpClientFactory _httpClientFactory;

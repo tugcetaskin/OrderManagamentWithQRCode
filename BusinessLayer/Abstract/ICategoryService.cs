@@ -12,5 +12,6 @@ namespace BusinessLayer.Abstract
         int TGetCategoryCount();
         int TCountOfActiveCategory();
         int TCountOfPassiveCategory();
+
     }
 }

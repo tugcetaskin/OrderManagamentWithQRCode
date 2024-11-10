@@ -82,5 +82,10 @@ namespace BusinessLayer.Concrete
         {
             return _productDal.AvarageMainMealPrice();
         }
+
+        public List<Product> TGetNineProducts()
+        {
+            return _productDal.GetNineProducts();
+        }
     }
 }

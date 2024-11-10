@@ -23,7 +23,12 @@ namespace BusinessLayer.Concrete
             _tableForCustomerDal.Add(entity);
         }
 
-        public void TDelete(TableForCustomer entity)
+		public TableForCustomer TAvailableOnlineTable()
+		{
+			return _tableForCustomerDal.AvailableOnlineTable();
+		}
+
+		public void TDelete(TableForCustomer entity)
         {
             _tableForCustomerDal.Delete(entity);
         }
@@ -38,6 +43,11 @@ namespace BusinessLayer.Concrete
             return _tableForCustomerDal.GetListAll();
         }
 
+        public int TGetTableIDByName(string name)
+        {
+            return _tableForCustomerDal.GetTableIDByName(name);
+        }
+
         public void TMarkAsAvaible(int id)
         {
             _tableForCustomerDal.MarkAsAvaible(id);
@@ -48,7 +58,12 @@ namespace BusinessLayer.Concrete
             _tableForCustomerDal.MarkAsFull(id);
         }
 
-        public int TTableCount()
+		public int TNewTableId()
+		{
+			return _tableForCustomerDal.NewTableId();
+		}
+
+		public int TTableCount()
         {
             return _tableForCustomerDal.TableCount();
         }

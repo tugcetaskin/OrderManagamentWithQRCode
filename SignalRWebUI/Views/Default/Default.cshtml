@@ -1,0 +1,12 @@
+﻿@using SignalRWebUI.DTOs.ProductDTOs
+@model List<ResultProductWitCategoryDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+@await Component.InvokeAsync("SectionOfDiscount")
+@await Component.InvokeAsync("SectionOfNineProducts")
+@await Component.InvokeAsync("SectionOfAbout")
+@await Html.PartialAsync("SendMessage.cshtml");
+@await Component.InvokeAsync("SectionOfTestimonials")

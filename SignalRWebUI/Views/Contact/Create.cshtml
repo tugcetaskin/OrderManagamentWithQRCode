@@ -11,7 +11,7 @@
             <form class="forms-sample" method="post">
                 <div class="form-group">
                     <label for="Location">Konum</label>
-                    <input type="text" class="form-control" asp-for="Location" id="Location">
+                    <input type="text" class="form-control" asp-for="Location" id="Location" placeholder="src kısmını yapıştırınız">
                 </div>
 
                 <div class="form-group">
@@ -29,8 +29,23 @@
                     <input type="text" class="form-control" asp-for="FooterDescription" id="FooterDescription">
                 </div>
 
+                <div class="form-group">
+                    <label for="FooterDescription">Açık Bilgisi Başlık</label>
+                    <input type="text" class="form-control" asp-for="OpenInfoTitle" id="OpenInfoTitle" placeholder="Açılış Saati">
+                </div>
+
+                <div class="form-group">
+                    <label for="FooterDescription">Açık Günler</label>
+                    <input type="text" class="form-control" asp-for="OpenDaysInfo" id="OpenDaysInfo" placeholder="Hergün | Hafta İçi Her Gün">
+                </div>
+
+                <div class="form-group">
+                    <label for="FooterDescription">Açık Saatler</label>
+                    <input type="text" class="form-control" asp-for="OpenHoursInfo" id="OpenHoursInfo" placeholder="10:00 | 20:00">
+                </div>
+
                 <button type="submit" class="btn btn-primary mr-2">Kaydet</button>
-                <a href="/Contact/Index" class="btn btn-dark">Çık</a>
+                <a href="/Contact/ContactList" class="btn btn-dark">Çık</a>
             </form>
         </div>
     </div>

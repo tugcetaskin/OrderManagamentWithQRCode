@@ -14,7 +14,7 @@ namespace SignalRWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> SocialMediaList()
         {
             var client = _httpClientFactory.CreateClient();
             var responseMes = await client.GetAsync("https://localhost:7214/api/SocialMedia");
@@ -33,9 +33,9 @@ namespace SignalRWebUI.Controllers
             var responseMes = await client.DeleteAsync($"https://localhost:7214/api/SocialMedia/{id}");
             if (responseMes.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("SocialMediaList");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("SocialMediaList");
         }
 
         [HttpGet]
@@ -53,7 +53,7 @@ namespace SignalRWebUI.Controllers
             var responseMes = await client.PostAsync("https://localhost:7214/api/SocialMedia/", content);
             if (responseMes.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("SocialMediaList");
             }
             return View();
         }
@@ -81,7 +81,7 @@ namespace SignalRWebUI.Controllers
             var responseMes = await client.PutAsync("https://localhost:7214/api/SocialMedia/", content);
             if (responseMes.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("SocialMediaList");
             }
             return View();
         }

@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">QR Kod İşlemleri</h4>
+            <form class="forms-sample" method="post" asp-action="Index" asp-controller="QRCode">
+                @if (ViewBag.List != null)
+                {
+                    <select style="width:150px; height:30px;" name="id">
+                        @foreach (var item in ViewBag.List)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <input type="text" name="value" />
+                }
+                
+                <input type="submit" value="QR Code Oluştur" class="btn btn-primary mr-2"/>
+                
+            </form>
+            <br />
+            <br />
+            @if (ViewBag.QRCodeImage != null)
+            {
+                <img src="@ViewBag.QRCodeImage" style="width:400px; height:400px;" />
+            }
+        </div>
+    </div>
+</div>
+

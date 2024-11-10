@@ -14,7 +14,7 @@ namespace SignalRWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> CategoryList()
         {
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7214/api/Category");
@@ -40,7 +40,7 @@ namespace SignalRWebUI.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7214/api/Category", stringContent);
             if(responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("CategoryList");
             }
             return View();
         }
@@ -51,7 +51,7 @@ namespace SignalRWebUI.Controllers
             var responseMessage = await client.DeleteAsync($"https://localhost:7214/api/Category/{id}");
             if(responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("CategoryList");
             }
             return View();
         }
@@ -78,7 +78,7 @@ namespace SignalRWebUI.Controllers
             var responseMessagge = await client.PutAsync("https://localhost:7214/api/Category/", stringContent);
             if (responseMessagge.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("CategoryList");
             }
             return View();
         }

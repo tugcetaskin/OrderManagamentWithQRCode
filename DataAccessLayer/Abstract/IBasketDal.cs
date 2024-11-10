@@ -12,5 +12,6 @@ namespace DataAccessLayer.Abstract
         List<Basket> GetBasketByTableNum(int id);
         Basket GetBasketByProductAndTable(int productId, int tableId);
         int GetBasketIdByPAndT(int productId, int tableId);
+        int GetBasketIdByTable(int tableId);
 	}
 }

@@ -52,7 +52,7 @@
 							<td class="align-middle">@item.Price</td>
 							<td class="align-middle">@item.TotalPrice</td>
 							<td class="align-middle btn-delete">
-								<a href="/Basket/DeleteProductInBasket/@item.ProductId" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+								<a onclick="SendTableId(@item.ProductId)" href="#" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
 					}
@@ -97,3 +97,22 @@
 	</div>
 </div>
 
+<script>
+	debugger;
+	function getTableIdFromUrl() {
+		var url = window.location.pathname;
+		var tableId = url.substring(url.lastIndexOf('/') + 1);
+		return tableId;
+	}
+
+	function SendTableId(value) {
+		var id = getTableIdFromUrl();
+		var productId = value;
+		if (id != null || id != 0) {
+			window.location.href = "/Basket/DeleteProductInBasket?id=" + id + "&productId=" + productId;
+		}
+		else {
+			window.location.href = "/Basket/DeleteProductInBasket?productId=" + productId;
+		}
+	}
+</script>

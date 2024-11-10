@@ -13,7 +13,8 @@ namespace SignalRApi.Hubs
         private readonly IBookingService _bookingService;
         private readonly INotificationService _notificationService;
         private readonly ITableForCustomerService _table;
-        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableForCustomerService tableForCustomerService, IBookingService bookingService, INotificationService notificationService, ITableForCustomerService table)
+        private readonly IDiscountService _discount;
+        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableForCustomerService tableForCustomerService, IBookingService bookingService, INotificationService notificationService, ITableForCustomerService table, IDiscountService discount)
         {
             _categoryService = categoryService;
             _productService = productService;
@@ -23,6 +24,7 @@ namespace SignalRApi.Hubs
             _bookingService = bookingService;
             _notificationService = notificationService;
             _table = table;
+            _discount = discount;
         }
         static int clientCount = 0;
         public async Task SendStatistic()
@@ -78,8 +80,23 @@ namespace SignalRApi.Hubs
 
         public async Task SendProgress()
         {
-            var value = _moneyCaseService.TTotalMoneyCaseAmount();
-            await Clients.All.SendAsync("ReceiveTotalMoneyCaseAmount", value.ToString("0.00") + "  ₺");
+            var value = _moneyCaseService.TTotalMoneyCaseAmount()/10;
+            await Clients.All.SendAsync("ReceiveTotalMoneyCaseAmount", value.ToString("0"));
+
+            var value2 = _productService.TAvarageProductPrice() /10;
+            await Clients.All.SendAsync("ReceiveAvarageProductPrice", value2.ToString("0"));
+
+            var value3 = _productService.TAvarageMainMealPrice() / 10;
+            await Clients.All.SendAsync("ReceiveAvarageMainMealPrice", value3.ToString("0"));
+
+            var value4 = _discount.TAvarageDiscountPercentage();
+            await Clients.All.SendAsync("ReceiveDiscountPercentage", value4.ToString("0"));
+
+            var value5 = _discount.TBiggestDiscount();
+            await Clients.All.SendAsync("ReceiveBiggestDiscount", value5.ToString("0"));
+
+            var value6 = _discount.TSmallestDiscount();
+            await Clients.All.SendAsync("ReceiveSmallestDiscount", value6.ToString("0"));
         }
 
         public async Task GetBookingList()

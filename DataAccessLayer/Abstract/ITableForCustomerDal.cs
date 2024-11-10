@@ -12,5 +12,8 @@ namespace DataAccessLayer.Abstract
         int TableCount();
         void MarkAsFull(int id);
         void MarkAsAvaible(int id);
+        int GetTableIDByName(string name);
+        int NewTableId();
+        TableForCustomer AvailableOnlineTable();
     }
 }

@@ -12,5 +12,7 @@ namespace DTOLayer.DiscountDTO
         public string Description { get; set; }
         public string Amount { get; set; }
         public string ImageUrl { get; set; }
+        public bool Status { get; set; }
+
     }
 }

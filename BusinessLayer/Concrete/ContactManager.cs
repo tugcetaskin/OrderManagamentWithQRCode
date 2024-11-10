@@ -33,6 +33,11 @@ namespace BusinessLayer.Concrete
             return _contactDal.GetById(id); 
         }
 
+        public Contact TGetLast()
+        {
+            return _contactDal.GetLast();
+        }
+
         public List<Contact> TGetListAll()
         {
             return _contactDal.GetListAll();

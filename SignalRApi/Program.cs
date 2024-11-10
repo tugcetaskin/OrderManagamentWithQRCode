@@ -1,8 +1,10 @@
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules.BookingValidations;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using FluentValidation;
 using SignalRApi.Hubs;
 using System.Reflection;
 using System.Text.Json.Serialization;
@@ -72,6 +74,11 @@ builder.Services.AddScoped<IBasketDal, EfBasketDal>();
 
 builder.Services.AddScoped<INotificationService, NotificationManager>();
 builder.Services.AddScoped<INotificationDal, EfNotificationDal>();
+
+builder.Services.AddScoped<IMessageService, MessageManager>();
+builder.Services.AddScoped<IMessageDal, EfMessageDal>();
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateBookingValidation>();
 // Add services to the container.
 
 builder.Services.AddControllersWithViews().AddJsonOptions(

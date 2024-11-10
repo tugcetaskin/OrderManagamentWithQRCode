@@ -4,7 +4,7 @@ namespace SignalRWebUI.Controllers
 {
     public class ProgressBarController : Controller
     {
-        public IActionResult Index()
+        public IActionResult InstantStatus()
         {
             return View();
         }

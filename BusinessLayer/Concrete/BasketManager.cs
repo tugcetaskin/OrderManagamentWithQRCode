@@ -43,6 +43,11 @@ namespace BusinessLayer.Concrete
 			return _basketDal.GetBasketIdByPAndT(productId, tableId);
 		}
 
+		public int TGetBasketIdByTable(int tableId)
+		{
+            return _basketDal.GetBasketIdByTable(tableId);
+		}
+
 		public Basket TGetById(int id)
         {
             return _basketDal.GetById(id);

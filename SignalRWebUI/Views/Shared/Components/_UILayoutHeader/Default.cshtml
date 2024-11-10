@@ -2,7 +2,7 @@
 <header class="header_section">
     <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="~/feane/index.html">
+            <a class="navbar-brand" href="/Default/Default">
                 <span>
                     DIOVOR
                 </span>
@@ -15,23 +15,23 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav  mx-auto ">
                     <li class="nav-item active">
-                        <a class="nav-link" href="~/feane/index.html">Ana Sayfa <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" onclick="HomePage()" href="/Default/Default/">Ana Sayfa <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/feane/menu.html">Menü</a>
+                        <a class="nav-link" onclick="Menu()" href="/Product/Menu/">Menü</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/feane/about.html">Hakkımızda</a>
+                        <a class="nav-link" onclick="About()" href="/FoodRapidApi/Index">Tarifler</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/feane/book.html">Rezervasyon</a>
+                        <a class="nav-link" onclick="BookATable()" href="/BookATable/Index/">Rezervasyon</a>
                     </li>
                 </ul>
                 <div class="user_option">
                     <a href="" class="user_link">
                         <i class="fa fa-user" aria-hidden="true"></i>
                     </a>
-                    <a class="cart_link" href="/Basket/Index">
+                    <a class="cart_link" onclick="SendTableId()" href="/Basket/Index/">
                         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                         <g>
                         <g>
@@ -90,7 +90,7 @@
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
                     </form>
-                    <a href="" class="order_online">
+                    <a href="/Product/Menu/Default" class="order_online">
                         Sipariş Ver
                     </a>
                 </div>
@@ -98,3 +98,62 @@
         </nav>
     </div>
 </header>
+
+<script>
+    debugger;
+    function getTableIdFromUrl() {
+        var url = window.location.pathname;
+        var tableId = url.substring(url.lastIndexOf('/') + 1);
+        return tableId;
+    }
+
+    function SendTableId() {
+        var id = getTableIdFromUrl();
+        if (id != null || id != 0) {
+            window.location.href = "/Basket/Index/" + id;
+        }
+        else{
+            window.location.href = "/Basket/Index";
+        }
+    }
+
+    function HomePage() {
+        var id = getTableIdFromUrl();
+        if (id != null || id != 0) {
+            window.location.href = "/Default/Default/" + id;
+        }
+        else{
+            window.location.href = "/Default/Default";
+        }
+    }
+
+    function Menu() {
+        var id = getTableIdFromUrl();
+        if (id != null || id != 0) {
+            window.location.href = "/Product/Menu/" + id;
+        }
+        else {
+            window.location.href = "/Product/Menu";
+        }
+    }
+
+    function About() {
+        var id = getTableIdFromUrl();
+        if (id != null || id != 0) {
+            window.location.href = "/Default/Default/" + id;
+        }
+        else {
+            window.location.href = "/Default/Default";
+        }
+    }
+
+    function BookATable() {
+        var id = getTableIdFromUrl();
+        if (id != null || id != 0) {
+            window.location.href = "/BookATable/Index/" + id;
+        }
+        else {
+            window.location.href = "/BookATable/Index";
+        }
+    }
+</script>

@@ -29,6 +29,19 @@ namespace DataAccessLayer.EntityFramework
             return context.Products.Average(x => x.Price);
         }
 
+        public List<Product> GetNineProducts()
+        {
+            using var context = new Context();
+            var side = context.Products.Include(y => y.Category).Where(x => x.CategoryId == 6).Take(3).ToList();
+            var main = context.Products.Include(y => y.Category).Where(x => x.CategoryId == 4).Take(3).ToList();
+            var dessert = context.Products.Include(y => y.Category).Where(x => x.CategoryId == 7).Take(3).ToList();
+			List < Product > result = new List<Product>();
+            result.AddRange(side);
+            result.AddRange(main);
+            result.AddRange(dessert);
+			return result;
+        }
+
         public int GetProductCount()
         {
             using var context = new Context();
